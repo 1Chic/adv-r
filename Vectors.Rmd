@@ -7,19 +7,22 @@ source("common.R")
 \index{vectors}
 \index{nodes}
 
-This chapter discusses the most important family of data types in base R: vectors[^node]. While you've probably already used many (if not all) of the different types of vectors, you may not have thought deeply about how they're interrelated. In this chapter, I won't cover individual vectors types in too much detail, but I will show you how all the types fit together as a whole. If you need more details, you can find them in R's documentation.
+이 챕터에서는 R에서 다룰 수 있는 데이터 유형 중 가장 중요하다고 볼 수 있는, vector[^node]를 다룰 것입니다. 여러분들은 이미 많은 유형의 서로 다른 vector(전부는 아니더라도)를 사용해 왔겠지만, 그것들이 서로 어떤 상관관계가 있는지 깊히 생각해보지는 않았을 것입니다. 이 챕터에서는 개별 vector 유형을 전부 디테일하게 다루지는 않습니다. 하지만 여러분들에게 모든 유형이 전체적으로 어떻게 조화를 이루고 있는지 보여드리고자 합니다. 조금 더 디테일한 자료를 보고 싶으신 분들은 R's documentation을 참고해주세요.
 
-[^node]: Collectively, all the other data types are known as "node" types, which include things like functions and environments. You're most likely to come across this highly technical term when using `gc()`: the "N" in `Ncells` stands for nodes and the "V" in `Vcells` stands for vectors.
+[^node]: Function과 environment을 포함하여 다른 모든 데이터 유형들은 "node"라고 알려져있습니다. 여러분들은 `gc()` 등을 사용할 때 이런 고차원적 기술용어를 접할 수도 있습니다. `Ncells`의 "N"은 node를 나타내고, `Vcells`의 "V"는 vector를 나타냅니다.
 
 Vectors come in two flavours: atomic vectors and lists[^generic-vectors]. They differ in terms of their elements' types: for atomic vectors, all elements must have the same type; for lists, elements can have different types. While not a vector, `NULL` is closely related to vectors and often serves the role of a generic zero length vector. This diagram, which we'll be expanding on throughout this chapter, illustrates the basic relationships:
+
+Vector는 element의 유형에 따라 atomic vector와 list[^generic-vectors] 두 가지로 나눌 수 있습니다. Atomic vector의 경우 모든 요소가 같은 유형으로 구성되는 반면, list의 경우 모든 요소가 다른 유형으로 구성될 수도 있습니다. Vector는 아니지만, `NULL`은 vector와 밀접한 관련이 있고 많은 경우에 길이가 0인 vector의 역할을 합니다. 아래 그림은 이와 같은 기본적인 관계를 도식화 한 것입니다. 이 챕터를 공부하면서 이 그림을 확장시켜나갈 것입니다.
 
 ```{r, echo = FALSE, out.width = NULL}
 knitr::include_graphics("diagrams/vectors/summary-tree.png")
 ```
 
-[^generic-vectors]: A few places in R's documentation call lists generic vectors to emphasise their difference from atomic vectors.
+[^generic-vectors]: R's documentation에서 list와 atomic vector의 차이를 강조하기 위해, list를 generic vector라고 부르기도 합니다.
 
-Every vector can also have __attributes__, which you can think of as a named list of arbitrary metadata. Two attributes are particularly important. The __dimension__ attribute turns vectors into matrices and arrays and the __class__ attribute powers the S3 object system. While you'll learn how to use S3 in Chapter \@ref(s3), here you'll learn about some of the most important S3 vectors: factors, date and times, data frames, and tibbles. And while 2D structures like matrices and data frames are not necessarily what come to mind when you think of vectors, you'll also learn why R considers them to be vectors.
+모든 벡터는 또한 __attributes__를 가집니다. 이것은 벡터의 메타데이터에 명명된 목록이라고 생각할 수 있습니다. 주로 두 개의 attribute가 중요합니다. 첫째로, __dimension__ attribute는 vector를 matrix와 array로 변경할 수 있습니다. 둘째로, __class__ attribute는 S3 객체 지향 시스템의 전원이됩니다. 챕터 \@ref(s3)에서 S3 사용법을 배우면서, 여러분들은 가장 중요한 S3 vector인 factor, date, time, data frame, tibble 등을 배울 것입니다. 그리고 matrix와 data frame과 같은 2D구조가 벡터를 생각할 때 필연적인 것은 아니지만, 왜 R에서는 그것들을 vector라고 간주하는지 배울 것입니다.
+
 
 ### Quiz {-}
 
